@@ -1,0 +1,23 @@
+
+version: "3.1"
+services:
+    docker-total-postgre:
+        image: postgres:12
+        container_name: docker-total-postgre
+        restart: always
+        environment:
+            docker: "true"
+        env_file:
+            - ./docker-compose.env
+        expose:
+            - 5432
+        ports:
+            - 5433:5432
+        volumes:
+            - /opt/docker-data/total/docker-total-postgre:/var/lib/postgresql/data
+        networks:
+          - traefik_default
+
+networks:
+  traefik_default:
+    external: true
