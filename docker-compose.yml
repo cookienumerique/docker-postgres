@@ -1,9 +1,9 @@
 
 version: "3.1"
 services:
-    total-postgre:
-        image: postgres:12
-        container_name: total-postgre
+    postgres:
+        image: postgres:latest
+        container_name: postgres
         restart: always
         environment:
             docker: "true"
@@ -14,10 +14,10 @@ services:
         ports:
             - 5433:5432
         volumes:
-            - /opt/docker-data/total/total-postgre:/var/lib/postgresql/data
+            - /opt/docker-data/postgres:/var/lib/postgresql/data
         networks:
-          - traefik_default
+          - postgres
 
 networks:
-  traefik_default:
-    external: true
+    postgres:
+        external: true
