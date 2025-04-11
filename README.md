@@ -1,2 +1,2 @@
-A mettre dans ~/opt
-# docker-postgres
+# create network before up -d
+docker network create postgres

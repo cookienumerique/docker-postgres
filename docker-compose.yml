@@ -1,23 +1,24 @@
-
-version: "3.1"
 services:
-    postgres:
-        image: postgres:latest
-        container_name: postgres
-        restart: always
-        environment:
-            docker: "true"
-        env_file:
-            - ./docker-compose.env
-        expose:
-            - 5432
-        ports:
-            - 5433:5432
-        volumes:
-            - ~/opt/docker-data/postgresSQL:/var/lib/postgresql/data
-        networks:
-          - postgres
+  postgres:
+    image: postgres:15-alpine
+    container_name: container_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pgsql
+    ports:
+      - 5433:5432
+    volumes:
+      - /Users/caveliermickael/opt/docker-data/postgresSQL:/var/lib/postgresql/data
+    networks:
+      - postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
-    postgres:
-        external: true
+  postgres:
+    external: true
